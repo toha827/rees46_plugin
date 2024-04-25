@@ -65,7 +65,7 @@ class Rees46Plugin: FlutterPlugin, Rees46Sender, ActivityAware {
     params.put(Params.Parameter.ITEM, itemID)
     params.put(Params.Parameter.CATEGORY, categoryID) //filter by category
 
-    REES46.recommend("RECOMMENDER_CODE", params, object : Api.OnApiCallbackListener() {
+    REES46.recommend(recommenderCode, params, object : Api.OnApiCallbackListener() {
       override fun onSuccess(response: JSONObject) {
         Log.i(TAG, "Recommender response: $response")
       }

@@ -22,7 +22,7 @@ enum TrackEvent {
 ))
 @HostApi()
 abstract class Rees46Sender {
-  void initialize(String shopID, String apiDomain);
+  void initialize(String shopID, String? apiDomain);
 
   void track(String trackEvent, String itemID);
 

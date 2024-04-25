@@ -64,7 +64,7 @@ enum class TrackEvent(val raw: Int) {
  * Generated interface from Pigeon that represents a handler of messages from Flutter.
  */
 interface Rees46Sender {
-  fun initialize(shopID: String, apiDomain: String)
+  fun initialize(shopID: String, apiDomain: String?)
   fun track(trackEvent: String, itemID: String)
   fun recommend(recommenderCode: String, extended: Boolean, itemID: String, categoryID: String)
 
@@ -83,7 +83,7 @@ interface Rees46Sender {
           channel.setMessageHandler { message, reply ->
             val args = message as List<Any?>
             val shopIDArg = args[0] as String
-            val apiDomainArg = args[1] as String
+            val apiDomainArg = args[1] as String?
             var wrapped: List<Any?>
             try {
               api.initialize(shopIDArg, apiDomainArg)

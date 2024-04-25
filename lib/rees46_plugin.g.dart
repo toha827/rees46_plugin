@@ -40,7 +40,7 @@ class Rees46Sender {
 
   final String __pigeon_messageChannelSuffix;
 
-  Future<void> initialize(String shopID, String apiDomain) async {
+  Future<void> initialize(String shopID, String? apiDomain) async {
     final String __pigeon_channelName = 'dev.flutter.pigeon.rees64_plugin.Rees46Sender.initialize$__pigeon_messageChannelSuffix';
     final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
       __pigeon_channelName,

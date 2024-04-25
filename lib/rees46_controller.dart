@@ -1,7 +1,7 @@
 import 'rees46_plugin.g.dart';
 
 abstract class IRees46Controller {
-  void initialize(String shopID, String apiDomain);
+  void initialize(String shopID, String? apiDomain);
 
   void track(String trackEvent, String itemID);
 
@@ -21,7 +21,7 @@ class Rees46Controller implements IRees46Controller, Rees46Receiver {
   final Rees46Sender _sink;
 
   @override
-  void initialize(String shopID, String apiDomain) => _sink.initialize(
+  void initialize(String shopID, String? apiDomain) => _sink.initialize(
         shopID,
         apiDomain,
       );

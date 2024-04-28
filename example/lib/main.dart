@@ -31,7 +31,10 @@ class _MyAppState extends State<MyApp> {
     // Platform messages may fail, so we use a try/catch PlatformException.
     // We also handle the message potentially returning null.
     try {
-      _rees46Plugin.initialize('d538197df225c66e7413647e553289', 'apiDomain');
+      _rees46Plugin.initialize('d538197df225c66e7413647e553289', '');
+      _rees46Plugin.initialize('c58471e2acfbc83c9f02d1083a6b07a5', '');
+      _rees46Plugin.initialize('7e6c2ef77fcc6bc80fedf64a7103b705', '');
+      _rees46Plugin.initialize('da2668fe479fa866e9d888d976db914a', '');
 
     } on PlatformException {
       platformVersion = 'Failed to get platform version.';

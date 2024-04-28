@@ -39,7 +39,6 @@ public class Rees46Plugin: NSObject, FlutterPlugin, Rees46Sender {
                 default:
                     print("Error: ", error.localizedDescription)
                 }
-                fatalError("Task failed successfully")
             }
         }
     }

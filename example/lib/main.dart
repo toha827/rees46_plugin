@@ -32,7 +32,7 @@ class _MyAppState extends State<MyApp> {
     // We also handle the message potentially returning null.
     try {
       _rees46Plugin.initialize('d538197df225c66e7413647e553289', 'apiDomain');
-      _rees46Plugin.track('VIEW', '12344');
+
     } on PlatformException {
       platformVersion = 'Failed to get platform version.';
     }

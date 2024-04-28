@@ -31,7 +31,8 @@ class _MyAppState extends State<MyApp> {
     // Platform messages may fail, so we use a try/catch PlatformException.
     // We also handle the message potentially returning null.
     try {
-      _rees46Plugin.initialize('TETSTE', 'apiDomain');
+      _rees46Plugin.initialize('d538197df225c66e7413647e553289', 'apiDomain');
+      _rees46Plugin.track('VIEW', '12344');
     } on PlatformException {
       platformVersion = 'Failed to get platform version.';
     }
@@ -47,7 +48,11 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Plugin example app'),
+          title: InkWell(
+              onTap: () {
+                initPlatformState();
+              },
+              child: const Text('Plugin example app')),
         ),
         body: Center(
           child: Text('Running on: $_platformVersion\n'),

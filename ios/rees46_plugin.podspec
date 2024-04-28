@@ -15,6 +15,7 @@ A new Flutter project.
   s.source           = { :path => '.' }
   s.source_files = 'Classes/**/*'
   s.dependency 'Flutter'
+  s.dependency 'REES46' # Add this line to include REES46 pod
   s.platform = :ios, '11.0'
 
   # Flutter.framework does not contain a i386 slice.

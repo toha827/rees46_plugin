@@ -58,6 +58,7 @@ enum class TrackEvent(val raw: Int) {
     }
   }
 }
+
 /**
  * FLUTTER FRAMEWORK -> FLUTTER ENGINE
  *
@@ -66,7 +67,7 @@ enum class TrackEvent(val raw: Int) {
 interface Rees46Sender {
   fun initialize(shopID: String, apiDomain: String?)
   fun track(trackEvent: String, itemID: String)
-  fun recommend(recommenderCode: String, extended: Boolean, itemID: String, categoryID: String)
+  fun recommend(recommenderCode: String, extended: Boolean, itemID: String, categoryID: String, callback: (Result<List<String>?>) -> Unit)
 
   companion object {
     /** The codec used by Rees46Sender. */
@@ -126,14 +127,15 @@ interface Rees46Sender {
             val extendedArg = args[1] as Boolean
             val itemIDArg = args[2] as String
             val categoryIDArg = args[3] as String
-            var wrapped: List<Any?>
-            try {
-              api.recommend(recommenderCodeArg, extendedArg, itemIDArg, categoryIDArg)
-              wrapped = listOf<Any?>(null)
-            } catch (exception: Throwable) {
-              wrapped = wrapError(exception)
+            api.recommend(recommenderCodeArg, extendedArg, itemIDArg, categoryIDArg) { result: Result<List<String>?> ->
+              val error = result.exceptionOrNull()
+              if (error != null) {
+                reply.reply(wrapError(error))
+              } else {
+                val data = result.getOrNull()
+                reply.reply(wrapResult(data))
+              }
             }
-            reply.reply(wrapped)
           }
         } else {
           channel.setMessageHandler(null)

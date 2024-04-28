@@ -26,11 +26,12 @@ abstract class Rees46Sender {
 
   void track(String trackEvent, String itemID);
 
-  void recommend(String recommenderCode, bool extended, String itemID, String categoryID);
+  @async
+  List<String>? recommend(
+      String recommenderCode, bool extended, String itemID, String categoryID);
 }
 
 /// FLUTTER FRAMEWORK <- FLUTTER ENGINE
 @FlutterApi()
 abstract class Rees46Receiver {
-  // void onTick(TickerMessage tickerMessage);
 }

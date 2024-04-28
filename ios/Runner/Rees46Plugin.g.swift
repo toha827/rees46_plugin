@@ -49,13 +49,14 @@ enum TrackEvent: Int {
   case wish = 6
   case removeWish = 7
 }
+
 /// FLUTTER FRAMEWORK -> FLUTTER ENGINE
 ///
 /// Generated protocol from Pigeon that represents a handler of messages from Flutter.
 protocol Rees46Sender {
   func initialize(shopID: String, apiDomain: String?) throws
   func track(trackEvent: String, itemID: String) throws
-  func recommend(recommenderCode: String, extended: Bool, itemID: String, categoryID: String) throws
+  func recommend(recommenderCode: String, extended: Bool, itemID: String, categoryID: String, completion: @escaping (Result<[String]?, Error>) -> Void)
 }
 
 /// Generated setup class from Pigeon to handle messages through the `binaryMessenger`.
@@ -104,11 +105,13 @@ class Rees46SenderSetup {
         let extendedArg = args[1] as! Bool
         let itemIDArg = args[2] as! String
         let categoryIDArg = args[3] as! String
-        do {
-          try api.recommend(recommenderCode: recommenderCodeArg, extended: extendedArg, itemID: itemIDArg, categoryID: categoryIDArg)
-          reply(wrapResult(nil))
-        } catch {
-          reply(wrapError(error))
+        api.recommend(recommenderCode: recommenderCodeArg, extended: extendedArg, itemID: itemIDArg, categoryID: categoryIDArg) { result in
+          switch result {
+          case .success(let res):
+            reply(wrapResult(res))
+          case .failure(let error):
+            reply(wrapError(error))
+          }
         }
       }
     } else {

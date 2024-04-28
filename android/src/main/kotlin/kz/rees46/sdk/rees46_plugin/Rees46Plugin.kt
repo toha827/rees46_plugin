@@ -16,7 +16,6 @@ import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
-import io.flutter.plugin.common.MethodChannel.Result
 import org.json.JSONObject
 
 /** Rees46Plugin */
@@ -59,17 +58,41 @@ class Rees46Plugin: FlutterPlugin, Rees46Sender, ActivityAware {
     REES46.track(Params.TrackEvent.valueOf(trackEvent), itemID);
   }
 
-  override fun recommend(recommenderCode: String, extended: Boolean, itemID: String, categoryID: String) {
+  override fun recommend(
+    recommenderCode: String,
+    extended: Boolean,
+    itemID: String,
+    categoryID: String,
+    callback: (Result<List<String>?>) -> Unit
+  ) {
     val params = Params()
     params.put(Params.Parameter.EXTENDED, extended)
     params.put(Params.Parameter.ITEM, itemID)
     params.put(Params.Parameter.CATEGORY, categoryID) //filter by category
 
+    var response : List<String>
+
     REES46.recommend(recommenderCode, params, object : Api.OnApiCallbackListener() {
       override fun onSuccess(response: JSONObject) {
-        Log.i(TAG, "Recommender response: $response")
+        callback(Result.success(parseRecommends(response)))
+      }
+
+      override fun onError(code: Int, msg: String?) {
+        super.onError(code, msg)
       }
     })
+  }
+
+
+  fun parseRecommends(jsonObject: JSONObject): List<String> {
+    val recommendsArray = jsonObject.getJSONArray("recommends")
+    val recommendsList = mutableListOf<String>()
+
+    for (i in 0 until recommendsArray.length()) {
+      recommendsList.add(recommendsArray.getString(i))
+    }
+
+    return recommendsList
   }
 
   override fun onAttachedToActivity(binding: ActivityPluginBinding) {

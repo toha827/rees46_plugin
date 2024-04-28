@@ -84,7 +84,7 @@ class Rees46Sender {
     }
   }
 
-  Future<void> recommend(String recommenderCode, bool extended, String itemID, String categoryID) async {
+  Future<List<String?>?> recommend(String recommenderCode, bool extended, String itemID, String categoryID) async {
     final String __pigeon_channelName = 'dev.flutter.pigeon.rees64_plugin.Rees46Sender.recommend$__pigeon_messageChannelSuffix';
     final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
       __pigeon_channelName,
@@ -102,7 +102,7 @@ class Rees46Sender {
         details: __pigeon_replyList[2],
       );
     } else {
-      return;
+      return (__pigeon_replyList[0] as List<Object?>?)?.cast<String?>();
     }
   }
 }

@@ -5,7 +5,7 @@ abstract class IRees46Controller {
 
   void track(String trackEvent, String itemID);
 
-  void recommend(
+  Future<List<String>?> recommend(
       String recommenderCode, bool extended, String itemID, String categoryID);
 }
 
@@ -33,8 +33,8 @@ class Rees46Controller implements IRees46Controller, Rees46Receiver {
       );
 
   @override
-  void recommend(
-      String recommenderCode, bool extended, String itemID, String categoryID) {
-    _sink.recommend(recommenderCode, extended, itemID, categoryID);
+  Future<List<String>?> recommend(
+      String recommenderCode, bool extended, String itemID, String categoryID) async {
+    return (await _sink.recommend(recommenderCode, extended, itemID, categoryID))?.where((element) => element != null).map((e) => e!).toList();
   }
 }

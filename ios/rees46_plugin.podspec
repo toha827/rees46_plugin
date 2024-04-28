@@ -15,6 +15,7 @@ A new Flutter project.
   s.source           = { :path => '.' }
   s.source_files = 'Classes/**/*'
   s.dependency 'Flutter'
+  s.ios.deployment_target = '12.0'
   s.dependency 'REES46' # Add this line to include REES46 pod
   s.platform = :ios, '12.0'
 

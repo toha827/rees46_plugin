@@ -17,8 +17,8 @@ enum TrackEvent {
   kotlinOut:
       'android/src/main/kotlin/kz/rees46/sdk/rees46_plugin/Rees46Plugin.g.kt',
   swiftOut: 'ios/Classes/Rees46Plugin.g.swift',
-  // objcHeaderOut: 'ios/Classes/Rees46Plugin.h',
-  // objcSourceOut: 'ios/Classes/Rees46Plugin.m',
+  objcHeaderOut: 'ios/Classes/Rees46Plugin.g.h',
+  objcSourceOut: 'ios/Classes/Rees46Plugin.g.m',
   javaOptions: JavaOptions(package: 'kz.rees46.sdk.rees46_plugin'),
   dartPackageName: 'rees64_plugin',
 ))

@@ -58,7 +58,9 @@ class _MyAppState extends State<MyApp> {
               child: const Text('Plugin example app')),
         ),
         body: Center(
-          child: Text('Running on: $_platformVersion\n'),
+          child: InkWell(onTap: () {
+            _rees46Plugin.track("VIEW", '12333');
+          },child: Text('Running on: $_platformVersion\n')),
         ),
       ),
     );

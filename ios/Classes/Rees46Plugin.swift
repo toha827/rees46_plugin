@@ -19,9 +19,9 @@ public class Rees46Plugin: NSObject, FlutterPlugin, Rees46Sender {
         case "VIEW":
             trackEventType = .productView(id: itemID)
             break;
-//        case "WISH":
-//            trackEventType = .productAddedToFavorities(id: itemID)
-//            break;
+        case "WISH":
+            trackEventType = .productAddedToFavorites(id: itemID)
+            break;
         default:
             return;
         }
@@ -54,6 +54,9 @@ public class Rees46Plugin: NSObject, FlutterPlugin, Rees46Sender {
                         for recommendation in response.recommended {
                             print("\(recommendation.name) with ID \(recommendation.id)")
                         }
+                        completion(Result.success(response.recommended.map({ it in
+                            it.id
+                        })))
                     case .failure(let error):
                         // Handle the error
                         print("Failed to fetch recommendations: \(error)")

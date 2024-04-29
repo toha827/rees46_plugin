@@ -57,6 +57,7 @@ protocol Rees46Sender {
   func initialize(shopID: String, apiDomain: String?) throws
   func track(trackEvent: String, itemID: String) throws
   func recommend(recommenderCode: String, extended: Bool, itemID: String, categoryID: String, completion: @escaping (Result<[String]?, Error>) -> Void)
+  func setProfile(userId: String, email: String, phone: String) throws
 }
 
 /// Generated setup class from Pigeon to handle messages through the `binaryMessenger`.
@@ -116,6 +117,23 @@ class Rees46SenderSetup {
       }
     } else {
       recommendChannel.setMessageHandler(nil)
+    }
+    let setProfileChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.rees64_plugin.Rees46Sender.setProfile\(channelSuffix)", binaryMessenger: binaryMessenger)
+    if let api = api {
+      setProfileChannel.setMessageHandler { message, reply in
+        let args = message as! [Any?]
+        let userIdArg = args[0] as! String
+        let emailArg = args[1] as! String
+        let phoneArg = args[2] as! String
+        do {
+          try api.setProfile(userId: userIdArg, email: emailArg, phone: phoneArg)
+          reply(wrapResult(nil))
+        } catch {
+          reply(wrapError(error))
+        }
+      }
+    } else {
+      setProfileChannel.setMessageHandler(nil)
     }
   }
 }

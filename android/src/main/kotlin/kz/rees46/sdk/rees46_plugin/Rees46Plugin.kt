@@ -8,6 +8,7 @@ import android.util.Log
 import androidx.annotation.NonNull
 import com.rees46.sdk.REES46
 import com.personalizatio.Api
+import com.personalizatio.Api.OnApiCallbackListener
 import com.personalizatio.Params
 
 import io.flutter.embedding.engine.plugins.FlutterPlugin
@@ -17,6 +18,7 @@ import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import org.json.JSONObject
+import java.util.HashMap
 
 /** Rees46Plugin */
 class Rees46Plugin: FlutterPlugin, Rees46Sender, ActivityAware {
@@ -93,6 +95,23 @@ class Rees46Plugin: FlutterPlugin, Rees46Sender, ActivityAware {
     }
 
     return recommendsList
+  }
+
+
+
+  override fun setProfile(userId: String, email: String, phone: String) {
+    var params: HashMap<String?, String?> = HashMap<String?, String?>()
+    params.put("email", email)
+    params.put("phone", phone)
+    params.put("loyalty_id", userId)
+    REES46.profile(params)
+    //With callback
+    REES46.profile(params, object : OnApiCallbackListener() {
+      override fun onSuccess(response: JSONObject?) {
+        android.util.Log.i(TAG, "Response: " + response.toString())
+      }
+    })
+
   }
 
   override fun onAttachedToActivity(binding: ActivityPluginBinding) {

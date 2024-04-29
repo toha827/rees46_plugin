@@ -6,7 +6,17 @@ abstract class IRees46Controller {
   void track(String trackEvent, String itemID);
 
   Future<List<String>?> recommend(
-      String recommenderCode, bool extended, String itemID, String categoryID);
+    String recommenderCode,
+    bool extended,
+    String itemID,
+    String categoryID,
+  );
+
+  void setProfile(
+    String userId,
+    String email,
+    String phone,
+  );
 }
 
 class Rees46Controller implements IRees46Controller, Rees46Receiver {
@@ -33,8 +43,25 @@ class Rees46Controller implements IRees46Controller, Rees46Receiver {
       );
 
   @override
-  Future<List<String>?> recommend(
-      String recommenderCode, bool extended, String itemID, String categoryID) async {
-    return (await _sink.recommend(recommenderCode, extended, itemID, categoryID))?.where((element) => element != null).map((e) => e!).toList();
+  Future<List<String>?> recommend(String recommenderCode, bool extended,
+      String itemID, String categoryID) async {
+    return (await _sink.recommend(
+            recommenderCode, extended, itemID, categoryID))
+        ?.where((element) => element != null)
+        .map((e) => e!)
+        .toList();
+  }
+
+  @override
+  void setProfile(
+    String userId,
+    String email,
+    String phone,
+  ) {
+    _sink.setProfile(
+      userId,
+      email,
+      phone,
+    );
   }
 }

@@ -68,6 +68,7 @@ interface Rees46Sender {
   fun initialize(shopID: String, apiDomain: String?)
   fun track(trackEvent: String, itemID: String)
   fun recommend(recommenderCode: String, extended: Boolean, itemID: String, categoryID: String, callback: (Result<List<String>?>) -> Unit)
+  fun setProfile(userId: String, email: String, phone: String)
 
   companion object {
     /** The codec used by Rees46Sender. */
@@ -136,6 +137,27 @@ interface Rees46Sender {
                 reply.reply(wrapResult(data))
               }
             }
+          }
+        } else {
+          channel.setMessageHandler(null)
+        }
+      }
+      run {
+        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.rees64_plugin.Rees46Sender.setProfile$separatedMessageChannelSuffix", codec)
+        if (api != null) {
+          channel.setMessageHandler { message, reply ->
+            val args = message as List<Any?>
+            val userIdArg = args[0] as String
+            val emailArg = args[1] as String
+            val phoneArg = args[2] as String
+            var wrapped: List<Any?>
+            try {
+              api.setProfile(userIdArg, emailArg, phoneArg)
+              wrapped = listOf<Any?>(null)
+            } catch (exception: Throwable) {
+              wrapped = wrapError(exception)
+            }
+            reply.reply(wrapped)
           }
         } else {
           channel.setMessageHandler(null)

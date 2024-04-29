@@ -30,10 +30,19 @@ abstract class Rees46Sender {
 
   @async
   List<String>? recommend(
-      String recommenderCode, bool extended, String itemID, String categoryID);
+    String recommenderCode,
+    bool extended,
+    String itemID,
+    String categoryID,
+  );
+
+  void setProfile(
+    String userId,
+    String email,
+    String phone,
+  );
 }
 
 /// FLUTTER FRAMEWORK <- FLUTTER ENGINE
 @FlutterApi()
-abstract class Rees46Receiver {
-}
+abstract class Rees46Receiver {}

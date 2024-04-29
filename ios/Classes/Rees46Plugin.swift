@@ -67,6 +67,25 @@ public class Rees46Plugin: NSObject, FlutterPlugin, Rees46Sender {
         }
     }
     
+    func setProfile(userId: String, email: String, phone: String) throws {
+        do {sdk!.setProfileData(userEmail: email,
+                                userPhone: phone,
+                                userLoyaltyId: userId
+//                                birthday: ...,
+//                                age: ...,
+//                                firstName: ...,
+//                                lastName: ...,
+//                                location: ...,
+//                                gender: ...
+        ) { (profileDataResp) in
+            print("Profile data callback")
+        }
+        } catch {
+            print(error)
+        }
+
+    }
+    
   public static func register(with registrar: FlutterPluginRegistrar) {
     let channel = FlutterMethodChannel(name: "rees46_plugin", binaryMessenger: registrar.messenger())
     let instance = Rees46Plugin()

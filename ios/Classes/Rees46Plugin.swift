@@ -45,8 +45,22 @@ public class Rees46Plugin: NSObject, FlutterPlugin, Rees46Sender {
     
     func recommend(recommenderCode: String, extended: Bool, itemID: String, categoryID: String, completion: @escaping (Result<[String]?, any Error>) -> Void) {
 
-        sdk!.recommend(blockId: recommenderCode) { recommendResult in
-            print("Callback", recommendResult)
+        do {
+            sdk!.recommend(blockId: recommenderCode) { result in
+                switch result {
+                    case .success(let response):
+                        // Handle the successful response
+                        print("Recommendations received: \(response.title)")
+                        for recommendation in response.recommended {
+                            print("\(recommendation.name) with ID \(recommendation.id)")
+                        }
+                    case .failure(let error):
+                        // Handle the error
+                        print("Failed to fetch recommendations: \(error)")
+                    }
+            }
+        } catch {
+            print(error)
         }
     }
     

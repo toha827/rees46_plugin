@@ -60,6 +60,7 @@ class _MyAppState extends State<MyApp> {
         body: Center(
           child: InkWell(onTap: () {
             _rees46Plugin.track("VIEW", '12333');
+            _rees46Plugin.recommend("b92d1c9dcd16ecfb83fb1335bc5e2464", false, "", "");
           },child: Text('Running on: $_platformVersion\n')),
         ),
       ),

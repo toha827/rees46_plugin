@@ -34,7 +34,7 @@ public class Rees46Plugin: NSObject, FlutterPlugin, Rees46Sender {
         case "remove_from_cart":
             trackEventType = .productRemovedFromCart(id: itemID)
             break;
-        case "remove_wish":
+        case "remove_from_wish":
             trackEventType = .productRemovedFromFavorites(id: itemID)
             break;
         default:

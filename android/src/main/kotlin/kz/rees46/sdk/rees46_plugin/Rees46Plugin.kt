@@ -59,7 +59,7 @@ class Rees46Plugin : FlutterPlugin, Rees46Sender, ActivityAware {
             cart
                 .put(
                     Params.Item(itemID)
-                        .set(Params.Item.COLUMN.AMOUNT, amount.toInt())
+                        .set(Params.Item.COLUMN.AMOUNT, amount!!.toInt())
                 )
             REES46.track(Params.TrackEvent.valueOf(trackEvent), cart);
             return;

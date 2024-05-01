@@ -13,14 +13,29 @@ public class Rees46Plugin: NSObject, FlutterPlugin, Rees46Sender {
         }
     }
     
-    func track(trackEvent: String, itemID: String) throws {
+    func track(trackEvent: String, itemID: String, amount: Int64?) throws {
         var trackEventType: Event;
-        switch (trackEvent) {
-        case "VIEW":
+        switch (trackEvent.lowercased()) {
+        case "view":
             trackEventType = .productView(id: itemID)
             break;
-        case "WISH":
+        case "wish":
             trackEventType = .productAddedToFavorites(id: itemID)
+            break;
+        case "category":
+            trackEventType = .categoryView(id: itemID)
+            break;
+        case "search":
+            trackEventType = .search(query: itemID)
+            break;
+        case "cart":
+            trackEventType = .productAddedToCart(id: itemID, amount: Int(amount!))
+            break;
+        case "remove_from_cart":
+            trackEventType = .productRemovedFromCart(id: itemID)
+            break;
+        case "remove_wish":
+            trackEventType = .productRemovedFromFavorites(id: itemID)
             break;
         default:
             return;

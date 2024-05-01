@@ -26,7 +26,11 @@ enum TrackEvent {
 abstract class Rees46Sender {
   void initialize(String shopID, String? apiDomain);
 
-  void track(String trackEvent, String itemID);
+  void track(
+    String trackEvent,
+    String itemID, {
+    int? amount,
+  });
 
   @async
   List<String>? recommend(

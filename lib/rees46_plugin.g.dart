@@ -62,7 +62,7 @@ class Rees46Sender {
     }
   }
 
-  Future<void> track(String trackEvent, String itemID) async {
+  Future<void> track(String trackEvent, String itemID, {int? amount,}) async {
     final String __pigeon_channelName = 'dev.flutter.pigeon.rees64_plugin.Rees46Sender.track$__pigeon_messageChannelSuffix';
     final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
       __pigeon_channelName,
@@ -70,7 +70,7 @@ class Rees46Sender {
       binaryMessenger: __pigeon_binaryMessenger,
     );
     final List<Object?>? __pigeon_replyList =
-        await __pigeon_channel.send(<Object?>[trackEvent, itemID]) as List<Object?>?;
+        await __pigeon_channel.send(<Object?>[trackEvent, itemID, amount]) as List<Object?>?;
     if (__pigeon_replyList == null) {
       throw _createConnectionError(__pigeon_channelName);
     } else if (__pigeon_replyList.length > 1) {

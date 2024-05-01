@@ -66,7 +66,7 @@ enum class TrackEvent(val raw: Int) {
  */
 interface Rees46Sender {
   fun initialize(shopID: String, apiDomain: String?)
-  fun track(trackEvent: String, itemID: String)
+  fun track(trackEvent: String, itemID: String, amount: Long?)
   fun recommend(recommenderCode: String, extended: Boolean, itemID: String, categoryID: String, callback: (Result<List<String>?>) -> Unit)
   fun setProfile(userId: String, email: String, phone: String)
 
@@ -106,9 +106,10 @@ interface Rees46Sender {
             val args = message as List<Any?>
             val trackEventArg = args[0] as String
             val itemIDArg = args[1] as String
+            val amountArg = args[2].let { if (it is Int) it.toLong() else it as Long? }
             var wrapped: List<Any?>
             try {
-              api.track(trackEventArg, itemIDArg)
+              api.track(trackEventArg, itemIDArg, amountArg)
               wrapped = listOf<Any?>(null)
             } catch (exception: Throwable) {
               wrapped = wrapError(exception)

@@ -55,7 +55,7 @@ enum TrackEvent: Int {
 /// Generated protocol from Pigeon that represents a handler of messages from Flutter.
 protocol Rees46Sender {
   func initialize(shopID: String, apiDomain: String?) throws
-  func track(trackEvent: String, itemID: String) throws
+  func track(trackEvent: String, itemID: String, amount: Int64?) throws
   func recommend(recommenderCode: String, extended: Bool, itemID: String, categoryID: String, completion: @escaping (Result<[String]?, Error>) -> Void)
   func setProfile(userId: String, email: String, phone: String) throws
 }
@@ -88,8 +88,9 @@ class Rees46SenderSetup {
         let args = message as! [Any?]
         let trackEventArg = args[0] as! String
         let itemIDArg = args[1] as! String
+        let amountArg: Int64? = isNullish(args[2]) ? nil : (args[2] is Int64? ? args[2] as! Int64? : Int64(args[2] as! Int32))
         do {
-          try api.track(trackEvent: trackEventArg, itemID: itemIDArg)
+          try api.track(trackEvent: trackEventArg, itemID: itemIDArg, amount: amountArg)
           reply(wrapResult(nil))
         } catch {
           reply(wrapError(error))

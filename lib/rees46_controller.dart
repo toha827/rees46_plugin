@@ -3,7 +3,11 @@ import 'rees46_plugin.g.dart';
 abstract class IRees46Controller {
   void initialize(String shopID, String? apiDomain);
 
-  void track(String trackEvent, String itemID);
+  void track(
+    String trackEvent,
+    String itemID, {
+    int? amount,
+  });
 
   Future<List<String>?> recommend(
     String recommenderCode,
@@ -37,9 +41,15 @@ class Rees46Controller implements IRees46Controller, Rees46Receiver {
       );
 
   @override
-  void track(String trackEvent, String itemID) => _sink.track(
+  void track(
+    String trackEvent,
+    String itemID, {
+    int? amount,
+  }) =>
+      _sink.track(
         trackEvent,
         itemID,
+        amount: amount,
       );
 
   @override

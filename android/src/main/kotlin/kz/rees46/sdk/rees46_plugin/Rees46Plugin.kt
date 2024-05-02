@@ -53,18 +53,22 @@ class Rees46Plugin : FlutterPlugin, Rees46Sender, ActivityAware {
     }
 
     override fun track(trackEvent: String, itemID: String, amount: Long?) {
-        if (trackEvent.toLowerCase() == "cart") {
-            //Add to cart (extended)
-            val cart = Params()
-            cart
-                .put(
-                    Params.Item(itemID)
-                        .set(Params.Item.COLUMN.AMOUNT, amount!!.toInt())
-                )
-            REES46.track(Params.TrackEvent.valueOf(trackEvent), cart);
-            return;
+        try {
+            if (trackEvent.toLowerCase() == "cart") {
+                //Add to cart (extended)
+                val cart = Params()
+                cart
+                    .put(
+                        Params.Item(itemID)
+                            .set(Params.Item.COLUMN.AMOUNT, amount!!.toInt())
+                    )
+                REES46.track(Params.TrackEvent.valueOf(trackEvent), cart);
+                return;
+            }
+            REES46.track(Params.TrackEvent.valueOf(trackEvent), itemID);
+        } catch (e: Exception) {
+            Log.e(TAG, "$e")
         }
-        REES46.track(Params.TrackEvent.valueOf(trackEvent), itemID);
     }
 
     override fun recommend(
@@ -74,22 +78,26 @@ class Rees46Plugin : FlutterPlugin, Rees46Sender, ActivityAware {
         categoryID: String,
         callback: (Result<List<String>?>) -> Unit
     ) {
-        val params = Params()
-        params.put(Params.Parameter.EXTENDED, extended)
-        params.put(Params.Parameter.ITEM, itemID)
-        params.put(Params.Parameter.CATEGORY, categoryID) //filter by category
+        try {
+            val params = Params()
+            params.put(Params.Parameter.EXTENDED, extended)
+            params.put(Params.Parameter.ITEM, itemID)
+            params.put(Params.Parameter.CATEGORY, categoryID) //filter by category
 
-        var response: List<String>
+            var response: List<String>
 
-        REES46.recommend(recommenderCode, params, object : Api.OnApiCallbackListener() {
-            override fun onSuccess(response: JSONObject) {
-                callback(Result.success(parseRecommends(response)))
-            }
+            REES46.recommend(recommenderCode, params, object : Api.OnApiCallbackListener() {
+                override fun onSuccess(response: JSONObject) {
+                    callback(Result.success(parseRecommends(response)))
+                }
 
-            override fun onError(code: Int, msg: String?) {
-                super.onError(code, msg)
-            }
-        })
+                override fun onError(code: Int, msg: String?) {
+                    super.onError(code, msg)
+                }
+            })
+        } catch (e: Exception) {
+            Log.e(TAG, "$e")
+        }
     }
 
 
@@ -106,17 +114,22 @@ class Rees46Plugin : FlutterPlugin, Rees46Sender, ActivityAware {
 
 
     override fun setProfile(userId: String, email: String, phone: String) {
-        var params: HashMap<String?, String?> = HashMap<String?, String?>()
-        params.put("email", email)
-        params.put("phone", phone)
-        params.put("loyalty_id", userId)
-        REES46.profile(params)
-        //With callback
-        REES46.profile(params, object : OnApiCallbackListener() {
-            override fun onSuccess(response: JSONObject?) {
-                android.util.Log.i(TAG, "Response: " + response.toString())
-            }
-        })
+        try {
+            var params: HashMap<String?, String?> = HashMap<String?, String?>()
+
+            params.put("email", email)
+            params.put("phone", phone)
+            params.put("loyalty_id", userId)
+            REES46.profile(params)
+            //With callback
+            REES46.profile(params, object : OnApiCallbackListener() {
+                override fun onSuccess(response: JSONObject?) {
+                    android.util.Log.i(TAG, "Response: " + response.toString())
+                }
+            })
+        } catch (e: Exception) {
+            Log.e(TAG, "$e")
+        }
 
     }
 

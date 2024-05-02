@@ -41,20 +41,24 @@ public class Rees46Plugin: NSObject, FlutterPlugin, Rees46Sender {
             return;
         }
         
-        sdk!.track(event: trackEventType) { trackResponse in
-            print("Product viewed callback")
-            switch trackResponse {
-            case let .success(response):
-                print("Successful")
-            case let .failure(error):
-                print("Error: ", error)
-                switch error {
-                case .custom(let customError):
-                    print("Error: ", customError)
-                default:
-                    print("Error: ", error.localizedDescription)
+        do {
+            sdk!.track(event: trackEventType) { trackResponse in
+                print("Product viewed callback")
+                switch trackResponse {
+                case let .success(response):
+                    print("Successful")
+                case let .failure(error):
+                    print("Error: ", error)
+                    switch error {
+                    case .custom(let customError):
+                        print("Error: ", customError)
+                    default:
+                        print("Error: ", error.localizedDescription)
+                    }
                 }
             }
+        } catch {
+            print("Track error \(error)")
         }
     }
     

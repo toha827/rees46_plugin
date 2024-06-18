@@ -101,16 +101,26 @@ class Rees46Plugin : FlutterPlugin, Rees46Sender, ActivityAware {
     }
 
 
-    fun parseRecommends(jsonObject: JSONObject): List<String> {
-        val recommendsArray = jsonObject.getJSONArray("recommends")
+    fun parseRecommends(jsonObject: JSONObject?): List<String> {
+        // Check if jsonObject is null
+        if (jsonObject == null) {
+            return emptyList()
+        }
+
         val recommendsList = mutableListOf<String>()
 
-        for (i in 0 until recommendsArray.length()) {
-            recommendsList.add(recommendsArray.getString(i))
+        // Check if "recommends" key is present and if it's not null
+        if (jsonObject.has("recommends") && !jsonObject.isNull("recommends")) {
+            val recommendsArray = jsonObject.getJSONArray("recommends")
+
+            for (i in 0 until recommendsArray.length()) {
+                recommendsList.add(recommendsArray.getString(i))
+            }
         }
 
         return recommendsList
     }
+
 
 
     override fun setProfile(userId: String, email: String, phone: String) {

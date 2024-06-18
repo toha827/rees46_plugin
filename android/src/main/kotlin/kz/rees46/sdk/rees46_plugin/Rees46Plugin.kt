@@ -87,7 +87,7 @@ class Rees46Plugin : FlutterPlugin, Rees46Sender, ActivityAware {
             var response: List<String>
 
             REES46.recommend(recommenderCode, params, object : Api.OnApiCallbackListener() {
-                override fun onSuccess(response: JSONObject) {
+                override fun onSuccess(response: JSONObject?) {
                     callback(Result.success(parseRecommends(response)))
                 }
 
@@ -109,14 +109,14 @@ class Rees46Plugin : FlutterPlugin, Rees46Sender, ActivityAware {
 
         val recommendsList = mutableListOf<String>()
 
-        // Check if "recommends" key is present and if it's not null
-        if (jsonObject.has("recommends") && !jsonObject.isNull("recommends")) {
-            val recommendsArray = jsonObject.getJSONArray("recommends")
-
-            for (i in 0 until recommendsArray.length()) {
-                recommendsList.add(recommendsArray.getString(i))
-            }
-        }
+//        // Check if "recommends" key is present and if it's not null
+//        if (jsonObject.has("recommends") && !jsonObject.isNull("recommends")) {
+//            val recommendsArray = jsonObject.getJSONArray("recommends")
+//
+//            for (i in 0 until recommendsArray.length()) {
+//                recommendsList.add(recommendsArray.getString(i))
+//            }
+//        }
 
         return recommendsList
     }

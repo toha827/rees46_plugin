@@ -20,22 +20,22 @@ public class Rees46Plugin: NSObject, FlutterPlugin, Rees46Sender {
             trackEventType = .productView(id: itemID)
             break;
         case "wish":
-            trackEventType = .productAddedToFavorites(id: itemID)
+            trackEventType = .productAddedToFavorities(id: itemID)
             break;
         case "category":
             trackEventType = .categoryView(id: itemID)
             break;
-        case "search":
-            trackEventType = .search(query: itemID)
-            break;
+//        case "search":
+//            trackEventType = .search(query: itemID)
+//            break;
         case "cart":
-            trackEventType = .productAddedToCart(id: itemID, amount: Int(amount!))
+            trackEventType = .productAddedToCart(id: itemID)
             break;
         case "remove_from_cart":
             trackEventType = .productRemovedFromCart(id: itemID)
             break;
         case "remove_from_wish":
-            trackEventType = .productRemovedFromFavorites(id: itemID)
+            trackEventType = .productRemovedToFavorities(id: itemID)
             break;
         default:
             return;
@@ -61,7 +61,6 @@ public class Rees46Plugin: NSObject, FlutterPlugin, Rees46Sender {
             print("Track error \(error)")
         }
     }
-    
     func recommend(recommenderCode: String, extended: Bool, itemID: String, categoryID: String, completion: @escaping (Result<[String]?, any Error>) -> Void) {
 
         do {

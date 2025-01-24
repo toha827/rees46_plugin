@@ -40,7 +40,7 @@ class Rees46Sender {
 
   final String __pigeon_messageChannelSuffix;
 
-  Future<void> initialize(String shopID, String? apiDomain) async {
+  Future<void> initialize(String shopID, String? apiDomain, String? token) async {
     final String __pigeon_channelName = 'dev.flutter.pigeon.rees64_plugin.Rees46Sender.initialize$__pigeon_messageChannelSuffix';
     final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
       __pigeon_channelName,
@@ -48,7 +48,7 @@ class Rees46Sender {
       binaryMessenger: __pigeon_binaryMessenger,
     );
     final List<Object?>? __pigeon_replyList =
-        await __pigeon_channel.send(<Object?>[shopID, apiDomain]) as List<Object?>?;
+        await __pigeon_channel.send(<Object?>[shopID, apiDomain, token]) as List<Object?>?;
     if (__pigeon_replyList == null) {
       throw _createConnectionError(__pigeon_channelName);
     } else if (__pigeon_replyList.length > 1) {

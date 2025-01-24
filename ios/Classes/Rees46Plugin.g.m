@@ -56,13 +56,14 @@ void SetUpRees46SenderWithSuffix(id<FlutterBinaryMessenger> binaryMessenger, NSO
         binaryMessenger:binaryMessenger
         codec:Rees46SenderGetCodec()];
     if (api) {
-      NSCAssert([api respondsToSelector:@selector(initializeShopID:apiDomain:error:)], @"Rees46Sender api (%@) doesn't respond to @selector(initializeShopID:apiDomain:error:)", api);
+      NSCAssert([api respondsToSelector:@selector(initializeShopID:apiDomain:token:error:)], @"Rees46Sender api (%@) doesn't respond to @selector(initializeShopID:apiDomain:token:error:)", api);
       [channel setMessageHandler:^(id _Nullable message, FlutterReply callback) {
         NSArray *args = message;
         NSString *arg_shopID = GetNullableObjectAtIndex(args, 0);
         NSString *arg_apiDomain = GetNullableObjectAtIndex(args, 1);
+        NSString *arg_token = GetNullableObjectAtIndex(args, 2);
         FlutterError *error;
-        [api initializeShopID:arg_shopID apiDomain:arg_apiDomain error:&error];
+        [api initializeShopID:arg_shopID apiDomain:arg_apiDomain token:arg_token error:&error];
         callback(wrapResult(nil, error));
       }];
     } else {

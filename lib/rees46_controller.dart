@@ -1,6 +1,7 @@
 import 'rees46_plugin.g.dart';
 
 abstract class IRees46Controller {
+  // Обновляем сигнатуру метода, добавляя параметр token
   void initialize(String shopID, String? apiDomain, String? token);
 
   void track(
@@ -35,8 +36,7 @@ class Rees46Controller implements IRees46Controller, Rees46Receiver {
   final Rees46Sender _sink;
 
   @override
-  void initialize(String shopID, String? apiDomain, String? token) =>
-      _sink.initialize(
+  void initialize(String shopID, String? apiDomain, String? token) => _sink.initialize(
         shopID,
         apiDomain,
         token,

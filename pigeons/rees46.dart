@@ -5,7 +5,7 @@ enum TrackEvent {
   category,
   cart,
   remove_from_cart,
-  purchase,
+  purchase, // добавлен, но не реализован в iOS/Android
   search,
   wish,
   remove_wish,
@@ -20,12 +20,14 @@ enum TrackEvent {
   objcHeaderOut: 'ios/Classes/Rees46Plugin.g.h',
   objcSourceOut: 'ios/Classes/Rees46Plugin.g.m',
   javaOptions: JavaOptions(package: 'kz.rees46.sdk.rees46_plugin'),
-  dartPackageName: 'rees64_plugin',
+  dartPackageName: 'rees46_plugin', 
 ))
 @HostApi()
 abstract class Rees46Sender {
+  @async 
   void initialize(String shopID, String? apiDomain);
 
+  @async 
   void track(
     String trackEvent,
     String itemID, {
@@ -40,6 +42,7 @@ abstract class Rees46Sender {
     String categoryID,
   );
 
+  @async 
   void setProfile(
     String userId,
     String email,
@@ -49,4 +52,6 @@ abstract class Rees46Sender {
 
 /// FLUTTER FRAMEWORK <- FLUTTER ENGINE
 @FlutterApi()
-abstract class Rees46Receiver {}
+abstract class Rees46Receiver {
+
+}

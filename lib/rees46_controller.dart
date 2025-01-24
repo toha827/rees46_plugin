@@ -1,9 +1,9 @@
 import 'rees46_plugin.g.dart';
 
 abstract class IRees46Controller {
-  void initialize(String shopID, String? apiDomain);
+  Future<void> initialize(String shopID, String? apiDomain);
 
-  void track(
+  Future<void> track(
     String trackEvent,
     String itemID, {
     int? amount,
@@ -16,7 +16,7 @@ abstract class IRees46Controller {
     String categoryID,
   );
 
-  void setProfile(
+  Future<void> setProfile(
     String userId,
     String email,
     String phone,
@@ -35,43 +35,54 @@ class Rees46Controller implements IRees46Controller, Rees46Receiver {
   final Rees46Sender _sink;
 
   @override
-  void initialize(String shopID, String? apiDomain) => _sink.initialize(
-        shopID,
-        apiDomain,
-      );
+  Future<void> initialize(String shopID, String? apiDomain) async {
+    try {
+      await _sink.initialize(shopID, apiDomain);
+    } catch (e) {
+      print('Ошибка инициализации REES46: $e');
+      rethrow;
+    }
+  }
 
   @override
-  void track(
+  Future<void> track(
     String trackEvent,
     String itemID, {
     int? amount,
-  }) =>
-      _sink.track(
-        trackEvent,
-        itemID,
-        amount: amount,
-      );
+  }) async {
+    try {
+      await _sink.track(trackEvent, itemID, amount: amount);
+    } catch (e) {
+      print('Ошибка отслеживания события: $e');
+      rethrow;
+    }
+  }
 
   @override
   Future<List<String>?> recommend(String recommenderCode, bool extended,
       String itemID, String categoryID) async {
-    return (await _sink.recommend(
-            recommenderCode, extended, itemID, categoryID))
-        ?.where((element) => element != null)
-        .map((e) => e!)
-        .toList();
+    try {
+      final result = await _sink.recommend(
+          recommenderCode, extended, itemID, categoryID);
+      // Фильтруем null значения и преобразуем в List<String>
+      return result?.where((element) => element != null).cast<String>().toList();
+    } catch (e) {
+      print('Ошибка получения рекомендаций: $e');
+      rethrow;
+    }
   }
 
   @override
-  void setProfile(
+  Future<void> setProfile(
     String userId,
     String email,
     String phone,
-  ) {
-    _sink.setProfile(
-      userId,
-      email,
-      phone,
-    );
+  ) async {
+    try {
+      await _sink.setProfile(userId, email, phone);
+    } catch (e) {
+      print('Ошибка установки профиля: $e');
+      rethrow;
+    }
   }
 }

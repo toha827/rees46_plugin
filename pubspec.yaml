@@ -1,7 +1,7 @@
 name: rees46_plugin
 description: "A new Flutter project."
-version: 0.0.1
-homepage:
+version: 1.0.1
+homepage: https://github.com/toha827/rees46_plugin.git
 
 environment:
   sdk: ">=2.19.6 <3.0.0"

@@ -36,10 +36,10 @@ class Rees46Controller implements IRees46Controller, Rees46Receiver {
   final Rees46Sender _sink;
 
   @override
-  void initialize(String shopID, String? apiDomain, String? token) => _sink.initialize(
+  void initialize(String shopID, String? apiDomain, String? fcmToken) => _sink.initialize(
         shopID,
         apiDomain,
-        token,
+        fcmToken,
       );
 
   @override

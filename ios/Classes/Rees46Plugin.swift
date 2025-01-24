@@ -7,7 +7,7 @@ public class Rees46Plugin: NSObject, FlutterPlugin, Rees46Sender {
     
     func initialize(shopID: String, apiDomain: String?) throws {
         do {
-            sdk = createPersonalizationSDK(shopId: shopID, apiDomain: apiDomain ?? "https://api.rees46.ru", stream: "ios", enableLogs: true)
+            sdk = createPersonalizationSDK(shopId: shopID, apiDomain: apiDomain ?? "api.rees46.ru", stream: "ios", enableLogs: true)
         } catch {
             print(error)
         }

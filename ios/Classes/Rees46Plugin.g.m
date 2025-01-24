@@ -52,18 +52,18 @@ void SetUpRees46SenderWithSuffix(id<FlutterBinaryMessenger> binaryMessenger, NSO
   {
     FlutterBasicMessageChannel *channel =
       [[FlutterBasicMessageChannel alloc]
-        initWithName:[NSString stringWithFormat:@"%@%@", @"dev.flutter.pigeon.rees46_plugin.Rees46Sender.initialize", messageChannelSuffix]
+        initWithName:[NSString stringWithFormat:@"%@%@", @"dev.flutter.pigeon.rees64_plugin.Rees46Sender.initialize", messageChannelSuffix]
         binaryMessenger:binaryMessenger
         codec:Rees46SenderGetCodec()];
     if (api) {
-      NSCAssert([api respondsToSelector:@selector(initializeShopID:apiDomain:completion:)], @"Rees46Sender api (%@) doesn't respond to @selector(initializeShopID:apiDomain:completion:)", api);
+      NSCAssert([api respondsToSelector:@selector(initializeShopID:apiDomain:error:)], @"Rees46Sender api (%@) doesn't respond to @selector(initializeShopID:apiDomain:error:)", api);
       [channel setMessageHandler:^(id _Nullable message, FlutterReply callback) {
         NSArray *args = message;
         NSString *arg_shopID = GetNullableObjectAtIndex(args, 0);
         NSString *arg_apiDomain = GetNullableObjectAtIndex(args, 1);
-        [api initializeShopID:arg_shopID apiDomain:arg_apiDomain completion:^(FlutterError *_Nullable error) {
-          callback(wrapResult(nil, error));
-        }];
+        FlutterError *error;
+        [api initializeShopID:arg_shopID apiDomain:arg_apiDomain error:&error];
+        callback(wrapResult(nil, error));
       }];
     } else {
       [channel setMessageHandler:nil];
@@ -72,19 +72,19 @@ void SetUpRees46SenderWithSuffix(id<FlutterBinaryMessenger> binaryMessenger, NSO
   {
     FlutterBasicMessageChannel *channel =
       [[FlutterBasicMessageChannel alloc]
-        initWithName:[NSString stringWithFormat:@"%@%@", @"dev.flutter.pigeon.rees46_plugin.Rees46Sender.track", messageChannelSuffix]
+        initWithName:[NSString stringWithFormat:@"%@%@", @"dev.flutter.pigeon.rees64_plugin.Rees46Sender.track", messageChannelSuffix]
         binaryMessenger:binaryMessenger
         codec:Rees46SenderGetCodec()];
     if (api) {
-      NSCAssert([api respondsToSelector:@selector(trackTrackEvent:itemID:amount:completion:)], @"Rees46Sender api (%@) doesn't respond to @selector(trackTrackEvent:itemID:amount:completion:)", api);
+      NSCAssert([api respondsToSelector:@selector(trackTrackEvent:itemID:amount:error:)], @"Rees46Sender api (%@) doesn't respond to @selector(trackTrackEvent:itemID:amount:error:)", api);
       [channel setMessageHandler:^(id _Nullable message, FlutterReply callback) {
         NSArray *args = message;
         NSString *arg_trackEvent = GetNullableObjectAtIndex(args, 0);
         NSString *arg_itemID = GetNullableObjectAtIndex(args, 1);
         NSNumber *arg_amount = GetNullableObjectAtIndex(args, 2);
-        [api trackTrackEvent:arg_trackEvent itemID:arg_itemID amount:arg_amount completion:^(FlutterError *_Nullable error) {
-          callback(wrapResult(nil, error));
-        }];
+        FlutterError *error;
+        [api trackTrackEvent:arg_trackEvent itemID:arg_itemID amount:arg_amount error:&error];
+        callback(wrapResult(nil, error));
       }];
     } else {
       [channel setMessageHandler:nil];
@@ -93,7 +93,7 @@ void SetUpRees46SenderWithSuffix(id<FlutterBinaryMessenger> binaryMessenger, NSO
   {
     FlutterBasicMessageChannel *channel =
       [[FlutterBasicMessageChannel alloc]
-        initWithName:[NSString stringWithFormat:@"%@%@", @"dev.flutter.pigeon.rees46_plugin.Rees46Sender.recommend", messageChannelSuffix]
+        initWithName:[NSString stringWithFormat:@"%@%@", @"dev.flutter.pigeon.rees64_plugin.Rees46Sender.recommend", messageChannelSuffix]
         binaryMessenger:binaryMessenger
         codec:Rees46SenderGetCodec()];
     if (api) {
@@ -115,19 +115,19 @@ void SetUpRees46SenderWithSuffix(id<FlutterBinaryMessenger> binaryMessenger, NSO
   {
     FlutterBasicMessageChannel *channel =
       [[FlutterBasicMessageChannel alloc]
-        initWithName:[NSString stringWithFormat:@"%@%@", @"dev.flutter.pigeon.rees46_plugin.Rees46Sender.setProfile", messageChannelSuffix]
+        initWithName:[NSString stringWithFormat:@"%@%@", @"dev.flutter.pigeon.rees64_plugin.Rees46Sender.setProfile", messageChannelSuffix]
         binaryMessenger:binaryMessenger
         codec:Rees46SenderGetCodec()];
     if (api) {
-      NSCAssert([api respondsToSelector:@selector(setProfileUserId:email:phone:completion:)], @"Rees46Sender api (%@) doesn't respond to @selector(setProfileUserId:email:phone:completion:)", api);
+      NSCAssert([api respondsToSelector:@selector(setProfileUserId:email:phone:error:)], @"Rees46Sender api (%@) doesn't respond to @selector(setProfileUserId:email:phone:error:)", api);
       [channel setMessageHandler:^(id _Nullable message, FlutterReply callback) {
         NSArray *args = message;
         NSString *arg_userId = GetNullableObjectAtIndex(args, 0);
         NSString *arg_email = GetNullableObjectAtIndex(args, 1);
         NSString *arg_phone = GetNullableObjectAtIndex(args, 2);
-        [api setProfileUserId:arg_userId email:arg_email phone:arg_phone completion:^(FlutterError *_Nullable error) {
-          callback(wrapResult(nil, error));
-        }];
+        FlutterError *error;
+        [api setProfileUserId:arg_userId email:arg_email phone:arg_phone error:&error];
+        callback(wrapResult(nil, error));
       }];
     } else {
       [channel setMessageHandler:nil];

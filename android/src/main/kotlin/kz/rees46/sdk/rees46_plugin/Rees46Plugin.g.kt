@@ -66,10 +66,10 @@ enum class TrackEvent(val raw: Int) {
  * Generated interface from Pigeon that represents a handler of messages from Flutter.
  */
 interface Rees46Sender {
-  fun initialize(shopID: String, apiDomain: String?, callback: (Result<Unit>) -> Unit)
-  fun track(trackEvent: String, itemID: String, amount: Long?, callback: (Result<Unit>) -> Unit)
+  fun initialize(shopID: String, apiDomain: String?)
+  fun track(trackEvent: String, itemID: String, amount: Long?)
   fun recommend(recommenderCode: String, extended: Boolean, itemID: String, categoryID: String, callback: (Result<List<String>?>) -> Unit)
-  fun setProfile(userId: String, email: String, phone: String, callback: (Result<Unit>) -> Unit)
+  fun setProfile(userId: String, email: String, phone: String)
 
   companion object {
     /** The codec used by Rees46Sender. */
@@ -80,48 +80,46 @@ interface Rees46Sender {
     fun setUp(binaryMessenger: BinaryMessenger, api: Rees46Sender?, messageChannelSuffix: String = "") {
       val separatedMessageChannelSuffix = if (messageChannelSuffix.isNotEmpty()) ".$messageChannelSuffix" else ""
       run {
-        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.rees46_plugin.Rees46Sender.initialize$separatedMessageChannelSuffix", codec)
+        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.rees64_plugin.Rees46Sender.initialize$separatedMessageChannelSuffix", codec)
         if (api != null) {
           channel.setMessageHandler { message, reply ->
             val args = message as List<Any?>
             val shopIDArg = args[0] as String
             val apiDomainArg = args[1] as String?
-            api.initialize(shopIDArg, apiDomainArg) { result: Result<Unit> ->
-              val error = result.exceptionOrNull()
-              if (error != null) {
-                reply.reply(wrapError(error))
-              } else {
-                reply.reply(wrapResult(null))
-              }
+            val wrapped: List<Any?> = try {
+              api.initialize(shopIDArg, apiDomainArg)
+              listOf<Any?>(null)
+            } catch (exception: Throwable) {
+              wrapError(exception)
             }
+            reply.reply(wrapped)
           }
         } else {
           channel.setMessageHandler(null)
         }
       }
       run {
-        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.rees46_plugin.Rees46Sender.track$separatedMessageChannelSuffix", codec)
+        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.rees64_plugin.Rees46Sender.track$separatedMessageChannelSuffix", codec)
         if (api != null) {
           channel.setMessageHandler { message, reply ->
             val args = message as List<Any?>
             val trackEventArg = args[0] as String
             val itemIDArg = args[1] as String
             val amountArg = args[2].let { num -> if (num is Int) num.toLong() else num as Long? }
-            api.track(trackEventArg, itemIDArg, amountArg) { result: Result<Unit> ->
-              val error = result.exceptionOrNull()
-              if (error != null) {
-                reply.reply(wrapError(error))
-              } else {
-                reply.reply(wrapResult(null))
-              }
+            val wrapped: List<Any?> = try {
+              api.track(trackEventArg, itemIDArg, amountArg)
+              listOf<Any?>(null)
+            } catch (exception: Throwable) {
+              wrapError(exception)
             }
+            reply.reply(wrapped)
           }
         } else {
           channel.setMessageHandler(null)
         }
       }
       run {
-        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.rees46_plugin.Rees46Sender.recommend$separatedMessageChannelSuffix", codec)
+        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.rees64_plugin.Rees46Sender.recommend$separatedMessageChannelSuffix", codec)
         if (api != null) {
           channel.setMessageHandler { message, reply ->
             val args = message as List<Any?>
@@ -144,21 +142,20 @@ interface Rees46Sender {
         }
       }
       run {
-        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.rees46_plugin.Rees46Sender.setProfile$separatedMessageChannelSuffix", codec)
+        val channel = BasicMessageChannel<Any?>(binaryMessenger, "dev.flutter.pigeon.rees64_plugin.Rees46Sender.setProfile$separatedMessageChannelSuffix", codec)
         if (api != null) {
           channel.setMessageHandler { message, reply ->
             val args = message as List<Any?>
             val userIdArg = args[0] as String
             val emailArg = args[1] as String
             val phoneArg = args[2] as String
-            api.setProfile(userIdArg, emailArg, phoneArg) { result: Result<Unit> ->
-              val error = result.exceptionOrNull()
-              if (error != null) {
-                reply.reply(wrapError(error))
-              } else {
-                reply.reply(wrapResult(null))
-              }
+            val wrapped: List<Any?> = try {
+              api.setProfile(userIdArg, emailArg, phoneArg)
+              listOf<Any?>(null)
+            } catch (exception: Throwable) {
+              wrapError(exception)
             }
+            reply.reply(wrapped)
           }
         } else {
           channel.setMessageHandler(null)

@@ -41,7 +41,7 @@ class Rees46Sender {
   final String __pigeon_messageChannelSuffix;
 
   Future<void> initialize(String shopID, String? apiDomain) async {
-    final String __pigeon_channelName = 'dev.flutter.pigeon.rees46_plugin.Rees46Sender.initialize$__pigeon_messageChannelSuffix';
+    final String __pigeon_channelName = 'dev.flutter.pigeon.rees64_plugin.Rees46Sender.initialize$__pigeon_messageChannelSuffix';
     final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
@@ -63,7 +63,7 @@ class Rees46Sender {
   }
 
   Future<void> track(String trackEvent, String itemID, {int? amount,}) async {
-    final String __pigeon_channelName = 'dev.flutter.pigeon.rees46_plugin.Rees46Sender.track$__pigeon_messageChannelSuffix';
+    final String __pigeon_channelName = 'dev.flutter.pigeon.rees64_plugin.Rees46Sender.track$__pigeon_messageChannelSuffix';
     final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
@@ -85,7 +85,7 @@ class Rees46Sender {
   }
 
   Future<List<String?>?> recommend(String recommenderCode, bool extended, String itemID, String categoryID) async {
-    final String __pigeon_channelName = 'dev.flutter.pigeon.rees46_plugin.Rees46Sender.recommend$__pigeon_messageChannelSuffix';
+    final String __pigeon_channelName = 'dev.flutter.pigeon.rees64_plugin.Rees46Sender.recommend$__pigeon_messageChannelSuffix';
     final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,
@@ -107,7 +107,7 @@ class Rees46Sender {
   }
 
   Future<void> setProfile(String userId, String email, String phone) async {
-    final String __pigeon_channelName = 'dev.flutter.pigeon.rees46_plugin.Rees46Sender.setProfile$__pigeon_messageChannelSuffix';
+    final String __pigeon_channelName = 'dev.flutter.pigeon.rees64_plugin.Rees46Sender.setProfile$__pigeon_messageChannelSuffix';
     final BasicMessageChannel<Object?> __pigeon_channel = BasicMessageChannel<Object?>(
       __pigeon_channelName,
       pigeonChannelCodec,

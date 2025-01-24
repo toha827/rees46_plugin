@@ -54,10 +54,10 @@ enum TrackEvent: Int {
 ///
 /// Generated protocol from Pigeon that represents a handler of messages from Flutter.
 protocol Rees46Sender {
-  func initialize(shopID: String, apiDomain: String?, completion: @escaping (Result<Void, Error>) -> Void)
-  func track(trackEvent: String, itemID: String, amount: Int64?, completion: @escaping (Result<Void, Error>) -> Void)
+  func initialize(shopID: String, apiDomain: String?) throws
+  func track(trackEvent: String, itemID: String, amount: Int64?) throws
   func recommend(recommenderCode: String, extended: Bool, itemID: String, categoryID: String, completion: @escaping (Result<[String]?, Error>) -> Void)
-  func setProfile(userId: String, email: String, phone: String, completion: @escaping (Result<Void, Error>) -> Void)
+  func setProfile(userId: String, email: String, phone: String) throws
 }
 
 /// Generated setup class from Pigeon to handle messages through the `binaryMessenger`.
@@ -66,44 +66,40 @@ class Rees46SenderSetup {
   /// Sets up an instance of `Rees46Sender` to handle messages through the `binaryMessenger`.
   static func setUp(binaryMessenger: FlutterBinaryMessenger, api: Rees46Sender?, messageChannelSuffix: String = "") {
     let channelSuffix = messageChannelSuffix.count > 0 ? ".\(messageChannelSuffix)" : ""
-    let initializeChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.rees46_plugin.Rees46Sender.initialize\(channelSuffix)", binaryMessenger: binaryMessenger)
+    let initializeChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.rees64_plugin.Rees46Sender.initialize\(channelSuffix)", binaryMessenger: binaryMessenger)
     if let api = api {
       initializeChannel.setMessageHandler { message, reply in
         let args = message as! [Any?]
         let shopIDArg = args[0] as! String
         let apiDomainArg: String? = nilOrValue(args[1])
-        api.initialize(shopID: shopIDArg, apiDomain: apiDomainArg) { result in
-          switch result {
-          case .success:
-            reply(wrapResult(nil))
-          case .failure(let error):
-            reply(wrapError(error))
-          }
+        do {
+          try api.initialize(shopID: shopIDArg, apiDomain: apiDomainArg)
+          reply(wrapResult(nil))
+        } catch {
+          reply(wrapError(error))
         }
       }
     } else {
       initializeChannel.setMessageHandler(nil)
     }
-    let trackChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.rees46_plugin.Rees46Sender.track\(channelSuffix)", binaryMessenger: binaryMessenger)
+    let trackChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.rees64_plugin.Rees46Sender.track\(channelSuffix)", binaryMessenger: binaryMessenger)
     if let api = api {
       trackChannel.setMessageHandler { message, reply in
         let args = message as! [Any?]
         let trackEventArg = args[0] as! String
         let itemIDArg = args[1] as! String
         let amountArg: Int64? = isNullish(args[2]) ? nil : (args[2] is Int64? ? args[2] as! Int64? : Int64(args[2] as! Int32))
-        api.track(trackEvent: trackEventArg, itemID: itemIDArg, amount: amountArg) { result in
-          switch result {
-          case .success:
-            reply(wrapResult(nil))
-          case .failure(let error):
-            reply(wrapError(error))
-          }
+        do {
+          try api.track(trackEvent: trackEventArg, itemID: itemIDArg, amount: amountArg)
+          reply(wrapResult(nil))
+        } catch {
+          reply(wrapError(error))
         }
       }
     } else {
       trackChannel.setMessageHandler(nil)
     }
-    let recommendChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.rees46_plugin.Rees46Sender.recommend\(channelSuffix)", binaryMessenger: binaryMessenger)
+    let recommendChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.rees64_plugin.Rees46Sender.recommend\(channelSuffix)", binaryMessenger: binaryMessenger)
     if let api = api {
       recommendChannel.setMessageHandler { message, reply in
         let args = message as! [Any?]
@@ -123,20 +119,18 @@ class Rees46SenderSetup {
     } else {
       recommendChannel.setMessageHandler(nil)
     }
-    let setProfileChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.rees46_plugin.Rees46Sender.setProfile\(channelSuffix)", binaryMessenger: binaryMessenger)
+    let setProfileChannel = FlutterBasicMessageChannel(name: "dev.flutter.pigeon.rees64_plugin.Rees46Sender.setProfile\(channelSuffix)", binaryMessenger: binaryMessenger)
     if let api = api {
       setProfileChannel.setMessageHandler { message, reply in
         let args = message as! [Any?]
         let userIdArg = args[0] as! String
         let emailArg = args[1] as! String
         let phoneArg = args[2] as! String
-        api.setProfile(userId: userIdArg, email: emailArg, phone: phoneArg) { result in
-          switch result {
-          case .success:
-            reply(wrapResult(nil))
-          case .failure(let error):
-            reply(wrapError(error))
-          }
+        do {
+          try api.setProfile(userId: userIdArg, email: emailArg, phone: phoneArg)
+          reply(wrapResult(nil))
+        } catch {
+          reply(wrapError(error))
         }
       }
     } else {

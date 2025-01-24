@@ -33,10 +33,10 @@ NSObject<FlutterMessageCodec> *Rees46SenderGetCodec(void);
 
 /// FLUTTER FRAMEWORK -> FLUTTER ENGINE
 @protocol Rees46Sender
-- (void)initializeShopID:(NSString *)shopID apiDomain:(nullable NSString *)apiDomain completion:(void (^)(FlutterError *_Nullable))completion;
-- (void)trackTrackEvent:(NSString *)trackEvent itemID:(NSString *)itemID amount:(nullable NSNumber *)amount completion:(void (^)(FlutterError *_Nullable))completion;
+- (void)initializeShopID:(NSString *)shopID apiDomain:(nullable NSString *)apiDomain error:(FlutterError *_Nullable *_Nonnull)error;
+- (void)trackTrackEvent:(NSString *)trackEvent itemID:(NSString *)itemID amount:(nullable NSNumber *)amount error:(FlutterError *_Nullable *_Nonnull)error;
 - (void)recommendRecommenderCode:(NSString *)recommenderCode extended:(BOOL)extended itemID:(NSString *)itemID categoryID:(NSString *)categoryID completion:(void (^)(NSArray<NSString *> *_Nullable, FlutterError *_Nullable))completion;
-- (void)setProfileUserId:(NSString *)userId email:(NSString *)email phone:(NSString *)phone completion:(void (^)(FlutterError *_Nullable))completion;
+- (void)setProfileUserId:(NSString *)userId email:(NSString *)email phone:(NSString *)phone error:(FlutterError *_Nullable *_Nonnull)error;
 @end
 
 extern void SetUpRees46Sender(id<FlutterBinaryMessenger> binaryMessenger, NSObject<Rees46Sender> *_Nullable api);

@@ -44,7 +44,7 @@ class Rees46Plugin : FlutterPlugin, Rees46Sender, ActivityAware {
         sink = null
     }
 
-    override fun initialize(shopID: String, apiDomain: String?) {
+    override fun initialize(shopID: String, apiDomain: String?, token: String?) {
         if (apiDomain == null) {
             REES46.initialize(appContext, shopID);
         } else {

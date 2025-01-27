@@ -2,10 +2,10 @@ PODS:
   - Flutter (1.0.0)
   - integration_test (0.0.1):
     - Flutter
-  - REES46 (3.6.7)
-  - rees46_plugin (0.0.1):
+  - REES46 (1.8.2)
+  - rees46_plugin (1.0.1):
     - Flutter
-    - REES46
+    - REES46 (~> 1.0)
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
@@ -25,10 +25,10 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/rees46_plugin/ios"
 
 SPEC CHECKSUMS:
-  Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
-  integration_test: 13825b8a9334a850581300559b8839134b124670
-  REES46: 5d9c23051ba11ffe78c26e6f9132ad47941b2f17
-  rees46_plugin: 7c99367650bea95892a6f4dab4dcaea2317a53b6
+  Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
+  integration_test: 252f60fa39af5e17c3aa9899d35d908a0721b573
+  REES46: 9a20e6ca3cdfacb5c1e4c52703fcf4e341f4afac
+  rees46_plugin: 560122ff882f7fe8859890ceb2fec93b0283551b
 
 PODFILE CHECKSUM: 7be2f5f74864d463a8ad433546ed1de7e0f29aef
 

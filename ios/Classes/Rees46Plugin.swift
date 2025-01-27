@@ -9,7 +9,7 @@ public class Rees46Plugin: NSObject, FlutterPlugin, Rees46Sender {
         do {
             sdk = createPersonalizationSDK(shopId: shopID, apiDomain: apiDomain ?? "api.rees46.ru", stream: "ios", enableLogs: true)
             
-            sdk.setPushTokenNotification(token: token) { (tokenResponse) in
+            sdk!.setPushTokenNotification(token: token ?? "") { (tokenResponse) in
                 print("Token set response")
               }
         } catch {

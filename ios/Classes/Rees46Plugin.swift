@@ -9,7 +9,7 @@ public class Rees46Plugin: NSObject, FlutterPlugin, Rees46Sender {
         do {
             sdk = createPersonalizationSDK(shopId: shopID, apiDomain: apiDomain ?? "api.rees46.ru", stream: "ios", enableLogs: true)
             
-            sdk!.setPushTokenNotification(token: token ?? "") { (tokenResponse) in
+            sdk?.setPushTokenNotification(token: token ?? "") { (tokenResponse) in
                 print("Token set response")
               }
         } catch {
@@ -46,7 +46,7 @@ public class Rees46Plugin: NSObject, FlutterPlugin, Rees46Sender {
         }
         
         do {
-            sdk!.track(event: trackEventType) { trackResponse in
+            sdk?.track(event: trackEventType) { trackResponse in
                 print("Product viewed callback")
                 switch trackResponse {
                 case let .success(response):
@@ -68,7 +68,7 @@ public class Rees46Plugin: NSObject, FlutterPlugin, Rees46Sender {
     func recommend(recommenderCode: String, extended: Bool, itemID: String, categoryID: String, completion: @escaping (Result<[String]?, any Error>) -> Void) {
 
         do {
-            sdk!.recommend(blockId: recommenderCode) { result in
+            sdk?.recommend(blockId: recommenderCode) { result in
                 switch result {
                     case .success(let response):
                         // Handle the successful response
@@ -90,7 +90,7 @@ public class Rees46Plugin: NSObject, FlutterPlugin, Rees46Sender {
     }
     
     func setProfile(userId: String, email: String, phone: String) throws {
-        do {sdk!.setProfileData(userEmail: email,
+        do {sdk?.setProfileData(userEmail: email,
                                 userPhone: phone,
                                 userLoyaltyId: userId
 //                                birthday: ...,
